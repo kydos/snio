@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ByteBufferError : Error {
+public enum ByteBufferError : Error {
     case OverFlow
     case Underflow
     case InvalidFormat
@@ -24,6 +24,7 @@ open class ByteBuffer : CustomStringConvertible {
     public var description: String {
         return "ByteBuffer[pos=\(self.position), lim=\(self.limit), cap=\(self.capacity)]"
     }
+    
     public var position: Int {
         get {
             return self.position_
