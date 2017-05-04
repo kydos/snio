@@ -129,6 +129,21 @@ open class ByteBuffer : CustomStringConvertible {
         return v
     }
     
+    @discardableResult
+    public func putByteArray(bs: [UInt8]) throws -> ByteBuffer {
+        let len = UInt(bs.endIndex)
+        try put(vle: len)
+        try put(bytes: bs)
+        
+        return self
+    }
+    
+    public func getByteArray() throws -> [UInt8] {
+        let len = Int(try self.getVle())
+        return try self.getBytes(len)
+        
+    }
+    
     
     
     @discardableResult
@@ -142,11 +157,7 @@ open class ByteBuffer : CustomStringConvertible {
         return self
     }
     
-    public func getBytes() throws -> [UInt8] {
-        let len = Int(try self.getVle())
-        return try self.getBytes(len)
     
-    }
     public func getBytes(_ n: Int) throws -> [UInt8] {
         if (self.position + n > self.limit) { throw ByteBufferError.Underflow }
         var bs =  [UInt8](repeating: 0, count: n)
