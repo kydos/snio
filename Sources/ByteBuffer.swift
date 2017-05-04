@@ -15,6 +15,12 @@ public enum ByteBufferError : Error {
 }
 
 
+/**
+    This class provides an implementation of a byte buffer inspired to 
+    the java.nio.ByteBuffer.
+
+ 
+ */
 open class ByteBuffer : CustomStringConvertible {
     
     private var buf_: [UInt8]
@@ -25,6 +31,9 @@ open class ByteBuffer : CustomStringConvertible {
         return "ByteBuffer[pos=\(self.position), lim=\(self.limit), cap=\(self.capacity)]"
     }
     
+    /**
+        Current position in the buffer.
+    */
     public var position: Int {
         get {
             return self.position_
@@ -130,7 +139,7 @@ open class ByteBuffer : CustomStringConvertible {
     }
     
     @discardableResult
-    public func putByteArray(bs: [UInt8]) throws -> ByteBuffer {
+    public func putSeq(bytes bs: [UInt8]) throws -> ByteBuffer {
         let len = UInt(bs.endIndex)
         try put(vle: len)
         try put(bytes: bs)
@@ -138,7 +147,7 @@ open class ByteBuffer : CustomStringConvertible {
         return self
     }
     
-    public func getByteArray() throws -> [UInt8] {
+    public func getSeqByte() throws -> [UInt8] {
         let len = Int(try self.getVle())
         return try self.getBytes(len)
         
@@ -227,7 +236,7 @@ open class ByteBuffer : CustomStringConvertible {
     }
     
     @discardableResult
-    public func put(stringArray xs: [String]) throws -> ByteBuffer {
+    public func putSeq(strings xs: [String]) throws -> ByteBuffer {
         let len = xs.endIndex
         if (self.position+len > self.limit) { throw ByteBufferError.OverFlow }
         try self.put(vle: UInt(len))
@@ -235,7 +244,7 @@ open class ByteBuffer : CustomStringConvertible {
         return self
     }
     
-    public func getStringArray() throws -> [String] {
+    public func getSeqString() throws -> [String] {
         let len = Int(try self.getVle())
         var xs = [String](repeating: "", count: len)
         for i in 0..<len {
