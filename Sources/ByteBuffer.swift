@@ -39,7 +39,7 @@ open class ByteBuffer : CustomStringConvertible {
             return self.position_
         }
         set(newPos) {
-            precondition(newPos < self.buf_.capacity)
+            precondition(newPos < self.limit)
             self.position_ = newPos
         }
     }
