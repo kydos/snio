@@ -78,14 +78,16 @@ open class ByteBuffer : CustomStringConvertible {
      */
     public init(fromArray xs: [UInt8]) {
         self.buf_ = xs
-        self.position = 0
-        self.limit = buf_.capacity
+        self.limit_ = buf_.capacity
+        self.position_ = 0
+        
     }
     
     public init(fromData d: Data) {
         self.buf_ = [UInt8](d)
-        self.position = 0
-        self.limit = self.buf_.capacity
+        self.limit_ = self.buf_.capacity
+        self.position_ = 0
+        
     }
     
     public func getSlice() -> ArraySlice<UInt8> {
@@ -110,8 +112,8 @@ open class ByteBuffer : CustomStringConvertible {
     
     @discardableResult
     public func clear() -> ByteBuffer {
-        self.position = 0
         self.limit = self.capacity
+        self.position = 0
         return self
     }
     
