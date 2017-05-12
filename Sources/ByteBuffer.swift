@@ -78,14 +78,14 @@ open class ByteBuffer : CustomStringConvertible {
      */
     public init(fromArray xs: [UInt8]) {
         self.buf_ = xs
-        self.limit_ = buf_.capacity
+        self.limit_ = buf_.count
         self.position_ = 0
         
     }
     
     public init(fromData d: Data) {
         self.buf_ = [UInt8](d)
-        self.limit_ = self.buf_.capacity
+        self.limit_ = self.buf_.count
         self.position_ = 0
         
     }
