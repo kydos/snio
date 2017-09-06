@@ -160,7 +160,7 @@ open class ByteBuffer : CustomStringConvertible {
             try buf.put(byte: self.getByte())
             len -= 1
         }
-        
+        buf.flip()
         return buf
     }
     
