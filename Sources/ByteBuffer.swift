@@ -142,9 +142,9 @@ open class ByteBuffer : CustomStringConvertible {
     
     @discardableResult
     public func putByteBuf(buffer buf: ByteBuffer) throws -> ByteBuffer {
-        let len = UInt(buf.limit)
+        let len = buf.limit
         let pos = buf.position
-        try put(vle: len)
+        try put(vle: UInt(len))
         while buf.position < len {
             try put(byte: buf.getByte())
         }
