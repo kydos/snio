@@ -90,6 +90,10 @@ open class ByteBuffer : CustomStringConvertible {
         
     }
     
+    deinit {
+        print(">>> Freeing ByteBuffer of \(self.capacity) bytes")
+    }
+    
     public func getSlice() -> ArraySlice<UInt8> {
         return self.buf_[self.position..<self.limit]
     }
